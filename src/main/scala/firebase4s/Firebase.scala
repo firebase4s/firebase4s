@@ -2,6 +2,8 @@ package firebase4s
 
 import java.io.InputStream
 
+import com.google.api.core.ApiFuture
+
 import scala.concurrent.{Future, Promise}
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
@@ -49,16 +51,16 @@ object Firebase {
     val p = Promise[User]()
     val ref = dbRef(s"users/${user.name.first}")
     ref.setValue(user, new DatabaseReference.CompletionListener() {
-      override def onComplete(databaseError: DatabaseError,
-                              databaseReference: DatabaseReference) {
-        if (databaseError != null) {
-          p.failure(new Exception(databaseError.getMessage))
-        } else {
-          p.success(user)
+        override def onComplete(databaseError: DatabaseError, databaseReference: DatabaseReference) {
+          if (databaseError != null) {
+            p.failure(new Exception(databaseError.getMessage))
+          } else {
+            p.success(user)
+          }
         }
       }
-    }
     )
+
     p.future
   }
 
