@@ -1,16 +1,26 @@
 package firebase4s
 
 import java.io.InputStream
-
-import com.google.api.core.ApiFuture
-
 import scala.concurrent.{Future, Promise}
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.database._
+import macros.ToStringObfuscate
 
 import scala.beans.BeanProperty
+
+object Testeroo {
+  def run(): Unit = {
+
+    @ToStringObfuscate("email")
+    case class Tim(name: String, email: String)
+
+    val t = Tim("timothy", "tim@timtime@.com")
+    println(t.toString)
+  }
+}
+
 
 object Firebase {
 
