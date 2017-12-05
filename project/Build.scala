@@ -31,7 +31,6 @@ object MyBuild extends Build {
     "macros",
     file("macros"),
     settings = buildSettings ++ Seq(
-      name := "firebase4s",
       libraryDependencies <+= scalaVersion ("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= (
         if (scalaVersion.value.startsWith("2.10")) {
@@ -51,6 +50,7 @@ object MyBuild extends Build {
     "core",
     file("core"),
     settings = buildSettings ++ Seq(
+      name := "firebase4s",
       libraryDependencies ++= Seq(
         "org.slf4j" % "slf4j-api" % "1.7.25",
         "ch.qos.logback" % "logback-classic" % "1.2.3",
