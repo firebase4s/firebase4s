@@ -1,23 +1,37 @@
 package firebase4s
 
 import java.io.InputStream
+
 import scala.concurrent.{Future, Promise}
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.database._
-import macros.ToStringObfuscate
+//import firebase4s.annotations.FirebaseData
+import firebase4s.annotations.Extends
+import firebase4s.annotations.Mixins.FirebaseDataTree
+
 
 import scala.beans.BeanProperty
 
 object Testeroo {
   def run(): Unit = {
 
-    @ToStringObfuscate("email")
-    case class Tim(name: String, email: String)
+    trait Base
+    trait Other
+
+//    @FirebaseData
+//    case class Name(first: String, last: String)
+
+    @Extends[FirebaseDataTree]
+    case class Tim(name: String, email: String) extends Base with Other
 
     val t = Tim("timothy", "tim@timtime@.com")
-    println(t.toString)
+
+    t match {
+      case _: FirebaseDataTree => println("Its a match!!!!")
+      case _ => println("Not a match")
+    }
   }
 }
 
@@ -33,6 +47,7 @@ object Firebase {
     .build()
 
   FirebaseApp.initializeApp(options)
+
   private val db = FirebaseDatabase.getInstance()
 
   def dbRef(path: String): DatabaseReference = db.getReference(path)
