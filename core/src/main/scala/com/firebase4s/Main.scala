@@ -1,10 +1,10 @@
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import firebase4s.Firebase._
-import firebase4s.Testeroo
+import com.firebase4s.App
+
+
 
 object Main extends App {
-  Testeroo.run()
-  set().foreach(println)
+  Sandbox.run()
   Thread.sleep(5000)
 }
