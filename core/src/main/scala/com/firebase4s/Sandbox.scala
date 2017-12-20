@@ -15,7 +15,7 @@ object Sandbox {
     App.initialize(serviceAccount, "https://fir-4s.firebaseio.com")
     val db: Database = Database.getInstance()
     val ref: DatabaseReference = db.ref("users")
-    ref.showRef()
+    println(ref)
   }
 
 
