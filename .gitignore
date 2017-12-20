@@ -9,6 +9,7 @@ target/
 lib_managed/
 src_managed/
 src/main/resources/
+core/src/main/resources/firebase-service-account-key.json
 project/boot/
 project/plugins/project/
 .history
