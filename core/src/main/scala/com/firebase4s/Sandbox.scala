@@ -1,27 +1,13 @@
 import java.io.InputStream
-import scala.concurrent.{Future, Promise}
-import com.firebase4s.{App, Database, DatabaseReference}
+import scala.concurrent.ExecutionContext.Implicits.global
+import com.firebase4s.App
+import com.firebase4s.database.{Database, DatabaseReference}
 //import com.google.firebase.database._
 //import macros.ToStringObfuscate/
 
 import scala.beans.BeanProperty
 
-object Sandbox {
-
-  def run(): Unit = {
-    val serviceAccount: InputStream =
-      getClass.getResourceAsStream("/firebase-service-account-key.json")
-
-    App.initialize(serviceAccount, "https://fir-4s.firebaseio.com")
-    val db: Database = Database.getInstance()
-    val ref: DatabaseReference = db.ref("users")
-    println(ref)
-  }
-
-
-
-//  def dbRef(path: String): DatabaseReference = db.getReference(path)
-
+object User {
   class Name() {
     @BeanProperty var first: String = _
     @BeanProperty var last: String = _
@@ -41,6 +27,26 @@ object Sandbox {
   val tim = new User()
   tim.name = timsName
   tim.email = "tim@timtime.com"
+
+  def get(): User = tim
+}
+
+object Sandbox {
+
+  def run(): Unit = {
+    val serviceAccount: InputStream =
+      getClass.getResourceAsStream("/firebase-service-account-key.json")
+
+    App.initialize(serviceAccount, "https://fir-4s.firebaseio.com")
+    val db: Database = Database.getInstance()
+    val user = User.get()
+    val ref: DatabaseReference = db.ref(s"users/${user.name.first}")
+    ref.get().map(println)
+  }
+
+
+
+//  def dbRef(path: String): DatabaseReference = db.getReference(path)
 
 //  def set(user: User = tim): Future[User] = {
 //    val p = Promise[User]()
