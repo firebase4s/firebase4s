@@ -1,6 +1,7 @@
 import java.io.InputStream
 import scala.concurrent.ExecutionContext.Implicits.global
-import com.firebase4s.{App, Database, DatabaseReference}
+import com.firebase4s.App
+import com.firebase4s.database.{Database, DatabaseReference}
 //import com.google.firebase.database._
 //import macros.ToStringObfuscate/
 
@@ -40,7 +41,7 @@ object Sandbox {
     val db: Database = Database.getInstance()
     val user = User.get()
     val ref: DatabaseReference = db.ref(s"users/${user.name.first}")
-    ref.setValue(user).map(println(_))
+    ref.get().map(println)
   }
 
 
