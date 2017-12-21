@@ -1,19 +1,14 @@
 package com.firebase4s.database
 
 import scala.concurrent.{Future, Promise}
-import com.google.firebase.database.{
-  DataSnapshot => FirebaseDataSnapshot,
-  ValueEventListener,
-  DatabaseError => FirebaseDatabaseError,
-  DatabaseReference => FirebaseDatabaseReference
-}
+import com.google.firebase.database
 
 /**
   * Represents an instance of a DatabaseReference
   * @param path
   * @param ref
   */
-class DatabaseReference(private val path: String, private val ref: FirebaseDatabaseReference) {
+class DatabaseReference(private val path: String, private val ref: database.DatabaseReference) {
 
   /**
     * Set a value at the reference location
@@ -25,8 +20,8 @@ class DatabaseReference(private val path: String, private val ref: FirebaseDatab
     val p = Promise[A]()
     ref.setValue(
       value,
-      new FirebaseDatabaseReference.CompletionListener {
-        override def onComplete(error: FirebaseDatabaseError, ref: FirebaseDatabaseReference): Unit = {
+      new database.DatabaseReference.CompletionListener {
+        override def onComplete(error: database.DatabaseError, ref: database.DatabaseReference): Unit = {
           if (error != null) {
             p.failure(new Exception(error.getMessage))
           } else {
@@ -45,11 +40,11 @@ class DatabaseReference(private val path: String, private val ref: FirebaseDatab
     */
   def get[A](): Future[DataSnapshot[A]] = {
     val p = Promise[DataSnapshot[A]]()
-    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-      override def onDataChange(snapshot: FirebaseDataSnapshot): Unit = {
+    ref.addListenerForSingleValueEvent(new database.ValueEventListener() {
+      override def onDataChange(snapshot: database.DataSnapshot): Unit = {
           p.success(DataSnapshot[A](snapshot))
       }
-      override def onCancelled(error: FirebaseDatabaseError): Unit = {
+      override def onCancelled(error: database.DatabaseError): Unit = {
         p.failure(new Exception(error.getMessage))
       }
     })
