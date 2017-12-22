@@ -1,12 +1,12 @@
 package com.firebase4s.database
 
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database
 
 /**
   * Represents a Database instance
   * @param db
   */
-class Database(private val db: FirebaseDatabase) {
+class Database(private val db: database.FirebaseDatabase) {
   def ref(path: String): DatabaseReference = new DatabaseReference(path, db.getReference(path))
 }
 
@@ -17,6 +17,6 @@ object Database {
   import com.firebase4s.App
   def getInstance(): Database = {
     require(App.initialized, "Firebase4S App must be initialized before accessing Database")
-    new Database(FirebaseDatabase.getInstance())
+    new Database(database.FirebaseDatabase.getInstance())
   }
 }
