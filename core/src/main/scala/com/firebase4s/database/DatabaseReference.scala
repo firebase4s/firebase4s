@@ -50,5 +50,4 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     })
     p.future
   }
-
 }

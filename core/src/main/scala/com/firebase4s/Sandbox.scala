@@ -1,7 +1,9 @@
 import java.io.InputStream
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.firebase4s.App
-import com.firebase4s.database.{Database, DatabaseReference}
+import com.firebase4s.database.{DataSnapshot, Database, DatabaseReference}
+import scala.concurrent.Future
 //import com.google.firebase.database._
 //import macros.ToStringObfuscate/
 
@@ -22,13 +24,22 @@ object User {
   val timsName = new Name()
   timsName.first = "timothy"
   timsName.middle = "d"
-
   timsName.last = "pike"
   val tim = new User()
   tim.name = timsName
   tim.email = "tim@timtime.com"
 
-  def get(): User = tim
+  val jessicasName = new Name()
+  jessicasName.first = "jessica"
+  jessicasName.last = "livingston"
+  jessicasName.middle = "umm"
+
+  val jessica = new User()
+  jessica.name = jessicasName
+  jessica.email = "jess@jgmail.com"
+
+  def getTim(): User = tim
+  def getJessica(): User = jessica
 }
 
 object Sandbox {
@@ -39,44 +50,10 @@ object Sandbox {
 
     App.initialize(serviceAccount, "https://fir-4s.firebaseio.com")
     val db: Database = Database.getInstance()
-    val user = User.get()
-    val ref: DatabaseReference = db.ref(s"users/${user.name.first}")
-    ref.get().map(println)
+    val user = User.getTim
+    val ref: DatabaseReference = db.ref("users")
+    val children: Future[Stream[DataSnapshot[AnyRef]]] = ref.get().map((s: DataSnapshot[AnyRef]) => s.getChildren)
+    children.map(_.take(1).toList).map(_.map(_.getValue)).foreach(println)
   }
-
-
-
-//  def dbRef(path: String): DatabaseReference = db.getReference(path)
-
-//  def set(user: User = tim): Future[User] = {
-//    val p = Promise[User]()
-//    val ref = dbRef(s"users/${user.name.first}")
-//    ref.setValue(user, new DatabaseReference.CompletionListener() {
-//        override def onComplete(databaseError: DatabaseError, databaseReference: DatabaseReference) {
-//          if (databaseError != null) {
-//            p.failure(new Exception(databaseError.getMessage))
-//          } else {
-//            p.success(user)
-//          }
-//        }
-//      }
-//    )
-//
-//    p.future
-//  }
-//
-//  def get(): Future[AnyRef] = {
-//    val p = Promise[AnyRef]()
-//    val ref = dbRef("things")
-//    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//      override def onDataChange(snapshot: DataSnapshot): Unit = {
-//        p.success(snapshot.getValue())
-//      }
-//      override def onCancelled(databaseError: DatabaseError): Unit = {
-//        p.failure(new Exception(databaseError.getMessage))
-//      }
-//    })
-//    p.future
-//  }
 
 }
