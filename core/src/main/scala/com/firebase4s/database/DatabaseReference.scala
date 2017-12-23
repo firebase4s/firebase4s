@@ -36,8 +36,8 @@ class DatabaseReference(private val path: String, private val ref: database.Data
 
 
   /**
-    * Listen for changes in the data at this location. With each change, the callback
-    * will be called with the snapshot wrapped in
+    * Listen for changes in the data at this location. With each change, the listener
+    * with Either[Exception, DataSnapshot]
     * @param cb
     * @return
     */
