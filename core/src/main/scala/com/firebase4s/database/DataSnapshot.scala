@@ -2,15 +2,16 @@ package com.firebase4s.database
 
 import com.google.firebase.database
 import scala.collection.JavaConverters._
+import DataConversions._
 
-case class DataSnapshot[A](private val snapshot: database.DataSnapshot) {
+case class DataSnapshot(private val snapshot: database.DataSnapshot) {
 
   /**
     * Get a snapshot at the specified path
     * @param path
     * @return
     */
-  def child(path: String): DataSnapshot[AnyRef] = DataSnapshot(snapshot.child(path))
+  def child(path: String): DataSnapshot = DataSnapshot(snapshot.child(path))
 
   /**
     * Returns true if the snapshot contains a (non-null) value
@@ -22,8 +23,8 @@ case class DataSnapshot[A](private val snapshot: database.DataSnapshot) {
     * Get all of the immediate children of the snapshot
     * @return
     */
-  def getChildren: Stream[DataSnapshot[AnyRef]] = {
-    snapshot.getChildren.asScala.toStream.map(DataSnapshot[AnyRef])
+  def getChildren: Stream[DataSnapshot] = {
+    snapshot.getChildren.asScala.toStream.map(DataSnapshot)
   }
 
   /**
@@ -36,8 +37,12 @@ case class DataSnapshot[A](private val snapshot: database.DataSnapshot) {
     * Get the data contained within the snapshot as an Option
     * @return
     */
-  def getValue: Option[AnyRef] = {
-    if (snapshot.exists) Some(snapshot.getValue()) else None
+  def getValue: Option[Any] = {
+    if (snapshot.exists()) {
+      Some(DataConversions.snapshotValueAsScala(snapshot.getValue))
+    } else {
+      None
+    }
   }
 
   /**
