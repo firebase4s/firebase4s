@@ -17,7 +17,7 @@ object DataConversions {
     *   <li>List&lt;Object&gt;
     * </ul>
     */
-  def snapshotValueAsScala(value: Any): Any = {
+  private[database] def snapshotValueAsScala(value: Any): Any = {
     value match {
       case b: java.lang.Boolean => b.asInstanceOf[Boolean]
       case s: java.lang.String => s
@@ -25,6 +25,18 @@ object DataConversions {
       case d: java.lang.Double => d.toDouble
       case m: java.util.HashMap[String, Object] => m.asScala
       case l: java.util.List[Object] => l.asScala.toList
+    }
+  }
+
+
+  /**
+    * Perform simple conversion for Map and List
+    */
+  private[database] def refValueAsJava(value: Any): Any = {
+    value match {
+      case l: List[_] => l.asJava
+      case m: Map[_, _] => mapAsJavaMap(m)
+      case _ => value
     }
   }
 
