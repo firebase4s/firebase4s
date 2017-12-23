@@ -2,6 +2,7 @@ package com.firebase4s.database
 
 import scala.concurrent.{Future, Promise}
 import com.google.firebase.database
+import DataConversions.refValueAsJava
 
 /**
   * Represents an instance of a DatabaseReference
@@ -19,7 +20,7 @@ class DatabaseReference(private val path: String, private val ref: database.Data
   def set[A](value: A): Future[A] = {
     val p = Promise[A]()
     ref.setValue(
-      value,
+      refValueAsJava(value),
       new database.DatabaseReference.CompletionListener {
         override def onComplete(error: database.DatabaseError, ref: database.DatabaseReference): Unit = {
           if (error != null) {
@@ -38,11 +39,11 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     * @tparam A
     * @return
     */
-  def get[A](): Future[DataSnapshot[A]] = {
-    val p = Promise[DataSnapshot[A]]()
+  def get[A](): Future[DataSnapshot] = {
+    val p = Promise[DataSnapshot]()
     ref.addListenerForSingleValueEvent(new database.ValueEventListener() {
       override def onDataChange(snapshot: database.DataSnapshot): Unit = {
-          p.success(DataSnapshot[A](snapshot))
+          p.success(DataSnapshot(snapshot))
       }
       override def onCancelled(error: database.DatabaseError): Unit = {
         p.failure(new Exception(error.getMessage))
