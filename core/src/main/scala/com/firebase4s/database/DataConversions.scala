@@ -28,6 +28,27 @@ object DataConversions {
     }
   }
 
+  /**
+    * Converts a Map to its Java counterpart for the purpose of updating several
+    * child locations simultaneously.  Any instances of Option.some are converted
+    * to their underlying values and any instances of Option.none are converted to
+    * null values.
+    *
+    * @param update
+    * @return
+    */
+  def childUpdateAsJava(update: Map[String, AnyRef]): java.util.Map[String, AnyRef] = {
+    mapAsJavaMap(update.mapValues(value => {
+      if (value.isInstanceOf[Option[_]]) {
+        value match {
+          case Some(v) => v.asInstanceOf[AnyRef]
+          case None => null
+        }
+      } else {
+        value
+      }
+    }))
+  }
 
   /**
     * Perform simple conversion for Map and List
