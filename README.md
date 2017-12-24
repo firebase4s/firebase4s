@@ -1,6 +1,10 @@
 
-![logo](./logo-128.png)
+<br />
 
-# firebase4s
-A Firebase SDK for Scala
+![logo](./logo/logo-side-text.png)
+
+----------
+
+###A Firebase SDK for Scala
+
 
