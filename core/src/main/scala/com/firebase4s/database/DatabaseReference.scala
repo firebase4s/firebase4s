@@ -63,9 +63,9 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     */
   def push(): DatabaseReference = {
     val childRef: database.DatabaseReference = ref.push()
-    new DatabaseReference(childRef.getPath.toString, childRef)
+    DatabaseReference.fromRef(childRef)
   }
-  
+
   /**
     * Update the specified child keys to the specified values. Option.None values will be
     * converted to null, thereby removing the value at specified location.  Option.Some
@@ -121,4 +121,41 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     })
   }
 
+  /**
+    * @return The last token in the location pointed to by this reference
+    */
+  def getKey: String = ref.getKey
+
+  /**
+    *
+    * @return The path to the DatabaseReference location
+    */
+  def getPath: String = ref.getPath.toString
+  
+  /**
+    * @return Some(DatabaseReference) to the parent location or None if
+    *         this DatabaseReference is at the root
+    */
+  def getParent: Option[DatabaseReference] = {
+    val parent: database.DatabaseReference = ref.getParent
+    if (parent == null) {
+      None
+    } else {
+      Some(DatabaseReference.fromRef(parent))
+    }
+  }
+
+  /**
+    * @return A DatabaseReference for the root location of this Firebase Database
+    */
+  def getRoot: DatabaseReference = {
+    val root: database.DatabaseReference = ref.getRoot
+    DatabaseReference.fromRef(root)
+  }
+}
+
+object DatabaseReference {
+  private[database] def fromRef(ref: database.DatabaseReference): DatabaseReference = {
+    new DatabaseReference(ref.getPath.toString, ref)
+  }
 }
