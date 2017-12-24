@@ -5,6 +5,6 @@
 
 ----------
 
-###A Firebase SDK for Scala
+### A Firebase SDK for Scala
 
 
