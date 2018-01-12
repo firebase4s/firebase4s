@@ -1,7 +1,6 @@
 package com.firebase4s.util
 
 import scala.concurrent.{Future, Promise}
-import java.util.concurrent.Executors
 import com.google.api.core.ApiFuture
 
 object FutureConverters {
@@ -14,7 +13,7 @@ object FutureConverters {
       } catch {
         case e: Exception => p.failure(e)
       }
-    }, Executors.newFixedThreadPool(1))
+    }, ExecutionContextExecutorServiceBridge(scala.concurrent.ExecutionContext.global))
     p.future
   }
 }
