@@ -2,7 +2,7 @@ package com.firebase4s.database
 
 import scala.concurrent.{Future, Promise}
 import com.google.firebase.database
-import DataConversions.{refValueAsJava, childUpdateAsJava}
+import DataConversions.{childUpdateAsJava, refValueAsJava}
 
 /**
   * Represents an instance of a DatabaseReference
@@ -76,15 +76,18 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     */
   def updateChildren(update: Map[String, AnyRef]): Future[Any] = {
     val p = Promise[Any]()
-    ref.updateChildren(childUpdateAsJava(update), new database.DatabaseReference.CompletionListener {
-      override def onComplete(error: database.DatabaseError, ref: database.DatabaseReference): Unit = {
-        if (error != null) {
-          p.failure(new Exception(error.getMessage))
-        } else {
-          p.success(update)
+    ref.updateChildren(
+      childUpdateAsJava(update),
+      new database.DatabaseReference.CompletionListener {
+        override def onComplete(error: database.DatabaseError, ref: database.DatabaseReference): Unit = {
+          if (error != null) {
+            p.failure(new Exception(error.getMessage))
+          } else {
+            p.success(update)
+          }
         }
       }
-    })
+    )
     p.future
   }
 
@@ -115,10 +118,12 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     * @return
     */
   def removeEventListener(id: EventListenerId): Option[EventListenerId] = {
-    eventListeners.get(id).map(listener => {
-      ref.removeEventListener(listener)
-      id
-    })
+    eventListeners
+      .get(id)
+      .map(listener => {
+        ref.removeEventListener(listener)
+        id
+      })
   }
 
   /**
@@ -131,7 +136,7 @@ class DatabaseReference(private val path: String, private val ref: database.Data
     * @return The path to the DatabaseReference location
     */
   def getPath: String = ref.getPath.toString
-  
+
   /**
     * @return Some(DatabaseReference) to the parent location or None if
     *         this DatabaseReference is at the root
