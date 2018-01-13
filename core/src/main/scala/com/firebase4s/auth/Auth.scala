@@ -2,60 +2,9 @@ package com.firebase4s.auth
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.collection.JavaConverters._
 import com.google.firebase.auth
 import com.firebase4s.util.FutureConverters.scalaFutureFromApiFuture
-
-trait UserProps {
-  def email: Option[String]
-  def emailVerified: Option[Boolean]
-  def password: Option[String]
-  def phoneNumber: Option[String]
-  def displayName: Option[String]
-  def photoUrl: Option[String]
-  def disabled: Option[Boolean]
-}
-
-/**
-  * Properties used to create a new user record
-  * @param email
-  * @param emailVerified
-  * @param password
-  * @param phoneNumber
-  * @param displayName
-  * @param photoUrl
-  * @param disabled
-  * @param uid
-  */
-case class UserCreationProps(
-                              email: Option[String] = None,
-                              emailVerified: Option[Boolean] = None,
-                              password: Option[String] = None,
-                              phoneNumber: Option[String] = None,
-                              displayName: Option[String] = None,
-                              photoUrl: Option[String] = None,
-                              disabled: Option[Boolean] = None,
-                              uid: Option[String] = None
-                            ) extends UserProps
-
-/**
-  * Properties used to create a new user record
-  * @param email
-  * @param emailVerified
-  * @param password
-  * @param phoneNumber
-  * @param displayName
-  * @param photoUrl
-  * @param disabled
-  */
-case class UserUpdateProps(
-                              email: Option[String] = None,
-                              emailVerified: Option[Boolean] = None,
-                              password: Option[String] = None,
-                              phoneNumber: Option[String] = None,
-                              displayName: Option[String] = None,
-                              photoUrl: Option[String] = None,
-                              disabled: Option[Boolean] = None,
-                            ) extends UserProps
 
 /**
   * Represents an Auth instance
@@ -102,12 +51,37 @@ class Auth(private val authentication: auth.FirebaseAuth) {
   }
 
   /**
+    * Deletes the user corresponding to the provided uid
+    * @param uid
+    * @return
+    */
+  def deleteUser(uid: String): Future[String] = {
+    scalaFutureFromApiFuture(authentication.deleteUserAsync(uid)).map(_ => uid)
+  }
+
+  /**
     * Updates a user record based on the specified properties.
     * @param props
     * @return
     */
   def updateUser(uid: String, props: UserUpdateProps): Future[UserRecord] = {
     scalaFutureFromApiFuture(authentication.updateUserAsync(updateRequest(uid, props))).map(UserRecord)
+  }
+
+  /**
+    * Creates a custom token associated with the provided uid
+    * https://firebase.google.com/docs/auth/admin/create-custom-tokens
+    * @param uid
+    * @param claims
+    * @return
+    */
+  def createCustomToken[A](uid: String, claims: Option[Map[String, Any]]): Future[String] = {
+    claims match {
+      case None => scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid))
+      case Some(c) =>
+        val claimsAsJavaMap = c.asJava.asInstanceOf[java.util.Map[String, Object]]
+        scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid,claimsAsJavaMap))
+    }
   }
 
   /**
