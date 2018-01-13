@@ -5,6 +5,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import com.google.firebase.auth
 import com.firebase4s.util.FutureConverters.scalaFutureFromApiFuture
 
+trait UserProps {
+  def email: Option[String]
+  def emailVerified: Option[Boolean]
+  def password: Option[String]
+  def phoneNumber: Option[String]
+  def displayName: Option[String]
+  def photoUrl: Option[String]
+  def disabled: Option[Boolean]
+}
+
 /**
   * Properties used to create a new user record
   * @param email
@@ -25,7 +35,27 @@ case class UserCreationProps(
                               photoUrl: Option[String] = None,
                               disabled: Option[Boolean] = None,
                               uid: Option[String] = None
-                            )
+                            ) extends UserProps
+
+/**
+  * Properties used to create a new user record
+  * @param email
+  * @param emailVerified
+  * @param password
+  * @param phoneNumber
+  * @param displayName
+  * @param photoUrl
+  * @param disabled
+  */
+case class UserUpdateProps(
+                              email: Option[String] = None,
+                              emailVerified: Option[Boolean] = None,
+                              password: Option[String] = None,
+                              phoneNumber: Option[String] = None,
+                              displayName: Option[String] = None,
+                              photoUrl: Option[String] = None,
+                              disabled: Option[Boolean] = None,
+                            ) extends UserProps
 
 /**
   * Represents an Auth instance
@@ -39,7 +69,7 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     * @return
     */
   private def createRequest(props: UserCreationProps): auth.UserRecord.CreateRequest = {
-    val request = new CreateRequest()
+    val request = new auth.UserRecord.CreateRequest()
     props.email.foreach(request.setEmail)
     props.emailVerified.foreach(request.setEmailVerified)
     props.password.foreach(request.setPassword)
@@ -50,14 +80,34 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     request
   }
 
+  private def updateRequest(uid: String, props: UserUpdateProps): auth.UserRecord.UpdateRequest = {
+    val request = new auth.UserRecord.UpdateRequest(uid)
+    props.email.foreach(request.setEmail)
+    props.emailVerified.foreach(request.setEmailVerified)
+    props.password.foreach(request.setPassword)
+    props.phoneNumber.foreach(request.setPhoneNumber)
+    props.photoUrl.foreach(request.setPhotoUrl)
+    props.disabled.foreach(request.setDisabled)
+    request
+  }
+
   /**
     * Creates a new user record based on the specified properties.  If no properties are set
-    * in the UserCreationProps, no record will be created.
+    * in the UserCreationProps, an anonymous user record will be created.
     * @param props
     * @return
     */
   def createUser(props: UserCreationProps): Future[UserRecord] = {
     scalaFutureFromApiFuture(authentication.createUserAsync(createRequest(props))).map(UserRecord)
+  }
+
+  /**
+    * Updates a user record based on the specified properties.
+    * @param props
+    * @return
+    */
+  def updateUser(uid: String, props: UserUpdateProps): Future[UserRecord] = {
+    scalaFutureFromApiFuture(authentication.updateUserAsync(updateRequest(uid, props))).map(UserRecord)
   }
 
   /**
