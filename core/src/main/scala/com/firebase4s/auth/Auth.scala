@@ -102,6 +102,15 @@ class Auth(private val authentication: auth.FirebaseAuth) {
   }
 
   /**
+    * Deletes the user corresponding to the provided uid
+    * @param uid
+    * @return
+    */
+  def deleteUser(uid: String): Future[String] = {
+    scalaFutureFromApiFuture(authentication.deleteUserAsync(uid)).map(_ => uid)
+  }
+
+  /**
     * Updates a user record based on the specified properties.
     * @param props
     * @return
