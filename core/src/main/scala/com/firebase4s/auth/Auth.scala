@@ -6,58 +6,6 @@ import scala.collection.JavaConverters._
 import com.google.firebase.auth
 import com.firebase4s.util.FutureConverters.scalaFutureFromApiFuture
 
-trait UserProps {
-  def email: Option[String]
-  def emailVerified: Option[Boolean]
-  def password: Option[String]
-  def phoneNumber: Option[String]
-  def displayName: Option[String]
-  def photoUrl: Option[String]
-  def disabled: Option[Boolean]
-}
-
-/**
-  * Properties used to create a new user record
-  * @param email
-  * @param emailVerified
-  * @param password
-  * @param phoneNumber
-  * @param displayName
-  * @param photoUrl
-  * @param disabled
-  * @param uid
-  */
-case class UserCreationProps(
-                              email: Option[String] = None,
-                              emailVerified: Option[Boolean] = None,
-                              password: Option[String] = None,
-                              phoneNumber: Option[String] = None,
-                              displayName: Option[String] = None,
-                              photoUrl: Option[String] = None,
-                              disabled: Option[Boolean] = None,
-                              uid: Option[String] = None
-                            ) extends UserProps
-
-/**
-  * Properties used to create a new user record
-  * @param email
-  * @param emailVerified
-  * @param password
-  * @param phoneNumber
-  * @param displayName
-  * @param photoUrl
-  * @param disabled
-  */
-case class UserUpdateProps(
-                              email: Option[String] = None,
-                              emailVerified: Option[Boolean] = None,
-                              password: Option[String] = None,
-                              phoneNumber: Option[String] = None,
-                              displayName: Option[String] = None,
-                              photoUrl: Option[String] = None,
-                              disabled: Option[Boolean] = None,
-                            ) extends UserProps
-
 /**
   * Represents an Auth instance
   * @param authentication
