@@ -2,6 +2,7 @@ package com.firebase4s.auth
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.collection.JavaConverters._
 import com.google.firebase.auth
 import com.firebase4s.util.FutureConverters.scalaFutureFromApiFuture
 
@@ -117,6 +118,22 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     */
   def updateUser(uid: String, props: UserUpdateProps): Future[UserRecord] = {
     scalaFutureFromApiFuture(authentication.updateUserAsync(updateRequest(uid, props))).map(UserRecord)
+  }
+
+  /**
+    * Creates a custom token associated with the provided uid
+    * https://firebase.google.com/docs/auth/admin/create-custom-tokens
+    * @param uid
+    * @param claims
+    * @return
+    */
+  def createCustomToken[A](uid: String, claims: Option[Map[String, Any]]): Future[String] = {
+    claims match {
+      case None => scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid))
+      case Some(c) =>
+        val claimsAsJavaMap = c.asJava.asInstanceOf[java.util.Map[String, Object]]
+        scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid,claimsAsJavaMap))
+    }
   }
 
   /**
