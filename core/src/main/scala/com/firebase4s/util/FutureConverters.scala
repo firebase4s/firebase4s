@@ -4,7 +4,6 @@ import scala.concurrent.{Future, Promise}
 import com.google.api.core.ApiFuture
 
 object FutureConverters {
-
   def scalaFutureFromApiFuture[A](future: ApiFuture[A]): Future[A] = {
     val p = Promise[A]
     future.addListener(() => {
@@ -17,4 +16,3 @@ object FutureConverters {
     p.future
   }
 }
-

@@ -2,7 +2,7 @@ package com.firebase4s.auth
 
 import com.google.firebase.auth
 
-case class UserRecord(user: auth.UserRecord){
+case class UserRecord(user: auth.UserRecord) {
   val uid: String = user.getUid
   val providerId: String = user.getProviderId
   val email: Option[String] = Option(user.getEmail)
