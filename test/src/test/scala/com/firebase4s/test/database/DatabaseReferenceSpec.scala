@@ -4,12 +4,13 @@ import scala.concurrent.Future
 import org.scalatest._
 import com.firebase4s.database.{ DataSnapshot, DatabaseReference }
 
-class DatabaseRefSpec extends AsyncWordSpecLike with Matchers {
+class DatabaseReferenceSpec extends AsyncWordSpecLike with Matchers {
+
   import com.firebase4s.test.Test.db
 
   val emptyRef: DatabaseReference = db.ref("test/empty")
 
-  "DatabaseRef" should {
+  "DatabaseReference" should {
     "return an empty snapshot" when {
       "no value exists at the ref location" in {
         val result = for {
