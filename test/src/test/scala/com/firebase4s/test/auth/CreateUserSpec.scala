@@ -26,16 +26,21 @@ class CreateUserSpec extends AsyncWordSpecLike with BeforeAndAfter with Matchers
 
         val props = UserCreationProps(
           email = Some("test@firebase4s.com"),
+          emailVerified = Some(true),
           displayName = Some("testUser"),
-          phoneNumber = Some("+15555555555")
+          phoneNumber = Some("+15555555555"),
+          photoUrl = Some("http://testing.com/photo.jpeg")
         )
 
         deleteUserByEmail(props.email.get)
           .flatMap(_ => auth.createUser(props))
           .map(user => {
             assert(user.email == props.email)
+            assert(user.emailVerified == props.emailVerified.get)
             assert(user.displayName == props.displayName)
             assert(user.phoneNumber == props.phoneNumber)
+            assert(user.photoUrl == props.photoUrl)
+
           })
       }
     }
