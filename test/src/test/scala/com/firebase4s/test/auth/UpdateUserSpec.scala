@@ -17,7 +17,7 @@ class UpdateUserSpec extends AsyncWordSpecLike with BeforeAndAfter with Matchers
           emailVerified = Some(true),
           displayName = Some("testUser"),
           phoneNumber = Some(randomPhone()),
-          photoUrl = Some("http://testing.com/photo.jpeg")
+          photoUrl = Some("http://firebase4s.com/photo.jpeg")
         )
 
         val updateProps: UserUpdateProps = UserUpdateProps(
