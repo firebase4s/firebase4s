@@ -9,7 +9,7 @@ Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SD
 
 ----------
 <a name="initialize"></a>
-### Initialize
+## Initialize
 
 Initialize the `App` with your Firebase service account credentials and database url, which may be obtained from the [Firebase console](https://console.firebase.google.com).
 
@@ -23,9 +23,9 @@ App.initialize(serviceAccount, "https://<MY_INSTANCE>.firebaseio.com")
 *The above code snippet assumes that you Firebase service account credentials exist in your project's `resources` directory.*
 
 
-<a name="database">
+<a name="database"></a>
 ## Realtime Database
-</a>
+
 To get an instance of a `DatabaseReference`:
 ```scala
 import com.firebase4s.database.Database
@@ -35,14 +35,14 @@ val fooRef: DatabaseReference = db.ref("foo")
 ```
 There are four *categories* of supported data types:
 
-#####&nbsp;&nbsp;&nbsp;&nbsp;*Simple Types*:  `String`, `Boolean`, `Int`, `Long`, `Double`
-#####&nbsp;&nbsp;&nbsp;&nbsp;*Maps containing Simple Types*: `Map[String, String]`, `Map[String, Boolean]`, etc.
-#####&nbsp;&nbsp;&nbsp;&nbsp;*Iterables containing Simple Types*: `List[String]` , `Vector[Long]`, etc.
-#####&nbsp;&nbsp;&nbsp;&nbsp;*Classes**
+##### &nbsp;&nbsp;&nbsp;&nbsp;*Simple Types*:  `String`, `Boolean`, `Int`, `Long`, `Double`
+##### &nbsp;&nbsp;&nbsp;&nbsp;*Maps containing Simple Types*: `Map[String, String]`, `Map[String, Boolean]`, etc.
+##### &nbsp;&nbsp;&nbsp;&nbsp;*Iterables containing Simple Types*: `List[String]` , `Vector[Long]`, etc.
+##### &nbsp;&nbsp;&nbsp;&nbsp;*Classes*
 
 *Currently, only [`JavaBean`](https://en.wikipedia.org/wiki/JavaBeans) classes are supported.  Future versions of Firebase4s will support the use of `case classes` through the use of [Scala Macro Annotations](https://docs.scala-lang.org/overviews/macros/annotations.html).*
 
-####Examples:
+#### Examples:
 
 Set and retrieve a `List[Int]`:
 ```scala
