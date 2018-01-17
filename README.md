@@ -1,9 +1,7 @@
 
 
-# <img src="logo/logo.png?raw=true" width=50px align="left" /> &nbsp;firebase4s
+# <img src="logo/logo.png?raw=true" width=40px align="left" /> &nbsp;firebase4s
 
-
-----------
 
 ### Overview
 
