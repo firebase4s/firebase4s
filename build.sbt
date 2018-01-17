@@ -1,7 +1,7 @@
 lazy val paradiseVersion = "2.1.0"
 lazy val googleApiVersion = "1.23.0"
 lazy val guavaVersion = "20.0"
-lazy val firebaseVersion = "5.4.0"
+lazy val firebaseVersion = "5.8.0"
 
 lazy val common = Seq(
   organization := "com.github.adrice727",

@@ -6,7 +6,7 @@ import org.scalatest._
 
 class CreateUserSpec extends AsyncWordSpecLike with BeforeAndAfter with Matchers {
 
-  import com.firebase4s.test.Test.auth
+  import com.firebase4s.test.Test._
 
   def deleteUserByEmail(email: String): Future[String] = {
 
@@ -25,10 +25,10 @@ class CreateUserSpec extends AsyncWordSpecLike with BeforeAndAfter with Matchers
       "provided with non-empty UserCreationProps" in {
 
         val props = UserCreationProps(
-          email = Some("test@firebase4s.com"),
+          email = Some(randomEmail()),
           emailVerified = Some(true),
           displayName = Some("testUser"),
-          phoneNumber = Some("+15555555555"),
+          phoneNumber = Some(randomPhone()),
           photoUrl = Some("http://testing.com/photo.jpeg")
         )
 
