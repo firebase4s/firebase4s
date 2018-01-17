@@ -37,6 +37,20 @@ lazy val core = (project in file("core"))
     )
   ) dependsOn macros
 
+lazy val test = (project in file("test"))
+  .settings(
+    common,
+    libraryDependencies ++= Seq(
+      "org.scalactic" %% "scalactic" % "3.0.4",
+      "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+    ),
+    resolvers ++= Seq(
+      Resolver.sonatypeRepo("releases"),
+      Resolver.sonatypeRepo("snapshots")
+    )
+  ) dependsOn core
+
+
 lazy val root = (project in file("."))
   .settings(
     common,

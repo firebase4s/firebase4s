@@ -55,8 +55,10 @@ object DataConversions {
     */
   private[database] def refValueAsJava(value: Any): Any = {
     value match {
-      case l: List[_] => l.asJava
+      case l: Seq[_] => l.toList.asJava
       case m: Map[_, _] => mapAsJavaMap(m)
+      case Some(v) => v
+      case None => null
       case _ => value
     }
   }

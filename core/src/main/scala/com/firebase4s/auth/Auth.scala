@@ -26,6 +26,7 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     props.photoUrl.foreach(request.setPhotoUrl)
     props.disabled.foreach(request.setDisabled)
     props.uid.foreach(request.setUid)
+    props.displayName.foreach(request.setDisplayName)
     request
   }
 
@@ -37,6 +38,7 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     props.phoneNumber.foreach(request.setPhoneNumber)
     props.photoUrl.foreach(request.setPhotoUrl)
     props.disabled.foreach(request.setDisabled)
+    props.displayName.foreach(request.setDisplayName)
     request
   }
 
@@ -46,9 +48,8 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     * @param props
     * @return
     */
-  def createUser(props: UserCreationProps): Future[UserRecord] = {
+  def createUser(props: UserCreationProps = UserCreationProps()): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.createUserAsync(createRequest(props))).map(UserRecord)
-  }
 
   /**
     * Deletes the user corresponding to the provided uid
@@ -64,9 +65,8 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     * @param props
     * @return
     */
-  def updateUser(uid: String, props: UserUpdateProps): Future[UserRecord] = {
+  def updateUser(uid: String, props: UserUpdateProps): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.updateUserAsync(updateRequest(uid, props))).map(UserRecord)
-  }
 
   /**
     * Creates a custom token associated with the provided uid
@@ -75,41 +75,37 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     * @param claims
     * @return
     */
-  def createCustomToken[A](uid: String, claims: Option[Map[String, Any]]): Future[String] = {
+  def createCustomToken[A](uid: String, claims: Option[Map[String, Any]]): Future[String] =
     claims match {
       case None => scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid))
       case Some(c) =>
         val claimsAsJavaMap = c.asJava.asInstanceOf[java.util.Map[String, Object]]
-        scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid,claimsAsJavaMap))
+        scalaFutureFromApiFuture(authentication.createCustomTokenAsync(uid, claimsAsJavaMap))
     }
-  }
 
   /**
     * Get the user record corresponding to the specified uid
     * @param uid
     * @return
     */
-  def getUser(uid: String): Future[UserRecord] = {
+  def getUser(uid: String): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.getUserAsync(uid)).map(UserRecord)
-  }
 
   /**
     * Get the user record corresponding to the specified email
     * @param email
     * @return
     */
-  def getUserByEmail(email: String): Future[UserRecord] = {
+  def getUserByEmail(email: String): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.getUserByEmailAsync(email)).map(UserRecord)
-  }
 
   /**
     * Get the user record corresponding to the specified phone number
     * @param phone
     * @return
     */
-  def getUserByPhoneNumber(phone: String): Future[UserRecord] = {
+  def getUserByPhoneNumber(phone: String): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.getUserByPhoneNumberAsync(phone)).map(UserRecord)
-  }
 }
 
 /**
