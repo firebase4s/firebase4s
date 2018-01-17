@@ -1,6 +1,8 @@
 
-<img src="https://github.com/firebase4s/firebase4s/blob/develop/logo/logo.png?raw=true" width=48px align="left"  />
-#&nbsp;firebase4s
+
+# <img src="logo/logo.png?raw=true" width=50px align="left" /> &nbsp;firebase4s
+
+
 ----------
 
 ### Overview
