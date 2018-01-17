@@ -54,7 +54,7 @@ final case class UserUpdateProps(
                             disabled: Option[Boolean] = None,
                           ) extends UserProps
 
-final case class UserRecord(user: auth.UserRecord) {
+final case class UserRecord(private val user: auth.UserRecord) {
   val uid: String = user.getUid
   val providerId: String = user.getProviderId
   val email: Option[String] = Option(user.getEmail)
