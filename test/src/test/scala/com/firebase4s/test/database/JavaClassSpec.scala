@@ -40,8 +40,8 @@ class JavaClassSpec extends AsyncWordSpecLike with Matchers {
           .set(userData)
           .map(user => {
             assert(user.name.first == userData.name.first)
-            assert(user.name.first == userData.name.first)
-            assert(user.name.first == userData.name.first)
+            assert(user.name.last == userData.name.last)
+            assert(user.name.middle == userData.name.middle)
             assert(user.email == userData.email)
           })
       }
@@ -58,8 +58,8 @@ class JavaClassSpec extends AsyncWordSpecLike with Matchers {
               assert(user.getClass == classOf[User])
               assert(user.name.getClass == classOf[Name])
               assert(user.name.first == userData.name.first)
-              assert(user.name.first == userData.name.first)
-              assert(user.name.first == userData.name.first)
+              assert(user.name.last == userData.name.last)
+              assert(user.name.middle == userData.name.middle)
               assert(user.email == userData.email)
             })
       }

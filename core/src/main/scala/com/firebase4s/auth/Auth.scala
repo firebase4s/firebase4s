@@ -106,6 +106,15 @@ class Auth(private val authentication: auth.FirebaseAuth) {
     */
   def getUserByPhoneNumber(phone: String): Future[UserRecord] =
     scalaFutureFromApiFuture(authentication.getUserByPhoneNumberAsync(phone)).map(UserRecord)
+
+  /**
+    * Verifies a Firebase ID Token
+    * @param idToken
+    * @return
+    */
+  def verifyIdToken(idToken: String):Future[FirebaseToken] = {
+    scalaFutureFromApiFuture(authentication.verifyIdTokenAsync(idToken)).map(FirebaseToken)
+  }
 }
 
 /**

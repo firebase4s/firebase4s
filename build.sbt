@@ -56,3 +56,23 @@ lazy val root = (project in file("."))
     common,
     run := run in Compile in core
   ) aggregate(macros, core)
+
+
+// POM settings for Sonatype
+homepage := Some(url("https://github.com/firebase4s/firebase4s"))
+scmInfo := Some(ScmInfo(url("https://github.com/firebase4s/firebase4s"),
+                            "git@github.com:firebase4s/firebase4s.git"))
+developers := List(Developer("username",
+                             "Aaron Rice",
+                             "adrice727@gmail.com",
+                             url("https://github.com/adrice727")))
+licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+publishMavenStyle := true
+
+// Add sonatype repository settings
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
