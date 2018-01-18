@@ -1,8 +1,8 @@
-<img src="logo/logo-side-logo.png?raw=true" width=400px align="left" />
+<img src="logo/logo-side-text.png?raw=true" width=300px />
 
 ### Overview
 
-Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://firebase.google.com/docs/admin/setup).  By providing more idiomatic API interfaces automatically handling the , Firebase4s willproviding more more idiomatic API interfaces and eliminating boilerplate required to convert values automatically handling data conversions to/from Java
+Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://firebase.google.com/docs/admin/setup).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s eliminates much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) that has been involved in Scala projects using Firebase.
 
 ----------
 <a name="initialize"></a>
@@ -144,4 +144,3 @@ val extraClaims = Map("admin" -> true)
 auth.createCustomToken(uid, Some(extraClaims)))
   .map(token => ???]) // Provide token to client
 ```
-
