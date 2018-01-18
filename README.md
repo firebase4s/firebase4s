@@ -1,4 +1,4 @@
-<img src="logo/logo-side-text.png?raw=true" width=300px />
+<img src="logo/logo-side-text.png?raw=true" width=400px />
 
 ### Overview
 
