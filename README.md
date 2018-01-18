@@ -2,7 +2,7 @@
 
 ### Overview
 
-Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://firebase.google.com/docs/admin/setup).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s eliminates much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) that has been involved in Scala projects using Firebase.
+Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s will eliminate much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK, while providing all of the same [functionality](https://firebase.google.com/docs/admin/setup).
 
 ----------
 <a name="initialize"></a>
@@ -17,7 +17,7 @@ val serviceAccount = getClass.getResourceAsStream("/serviceAccountCredentials.js
 
 App.initialize(serviceAccount, "https://<MY_INSTANCE>.firebaseio.com")
 ```
-*The above code snippet assumes that you Firebase service account credentials exist in your project's `resources` directory.*
+*The above code snippet assumes that your Firebase service account credentials exist in your project's `resources` directory.*
 
 
 <a name="database"></a>
