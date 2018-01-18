@@ -1,7 +1,4 @@
-
-
-# <img src="logo/logo.png?raw=true" width=40px align="left" />firebase4s
-
+<img src="logo/logo-side-logo.png?raw=true" width=400px align="left" />
 
 ### Overview
 
@@ -9,7 +6,7 @@ Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SD
 
 ----------
 <a name="initialize"></a>
-## Initialize
+### Initialize
 
 Initialize the `App` with your Firebase service account credentials and database url, which may be obtained from the [Firebase console](https://console.firebase.google.com).
 
@@ -24,7 +21,7 @@ App.initialize(serviceAccount, "https://<MY_INSTANCE>.firebaseio.com")
 
 
 <a name="database"></a>
-## Realtime Database
+### Realtime Database
 
 To get an instance of a `DatabaseReference`:
 ```scala
@@ -88,3 +85,63 @@ userRef.get()
   .map((user: Option[UserRecord]) => ???) // handle result
 
 ```
+<a name="auth"></a>
+### Authentication
+
+##### Create a User:
+```scala
+import com.firebase4s.{Auth, UserCreationProps}
+
+val auth: Auth = Auth.getInstance()
+
+// User Props
+val props = UserCreationProps(
+  email = Some("tim@firebase4s.com"),
+  displayName = Some("tim"),
+  phoneNumber = Some("+1555555555"),
+  photoUrl = Some("http://testing.com/photo.jpeg")
+)
+
+auth.createUser(props)
+  .map((user: UserRecord) => ???) // handle results
+
+```
+
+##### Update a User:
+```scala
+import com.firebase4s.{Auth, UserUpdateProps}
+
+val auth: Auth = Auth.getInstance()
+
+// Props to update
+val props = UserUpdateProps(
+  email = Some("timothy@firebase4s.com"),
+  phoneNumber = Some("+15655655555")
+)
+
+auth.updateUser(props)
+  .map((user: UserRecord) => ???) // handle results
+
+```
+##### Delete a User:
+
+```scala
+auth.deleteUser(user.uid)
+  .map(uid => ???) // handle result
+
+```
+
+##### Verify a Firebase ID Token:
+
+```scala
+auth.verifyIdToken(token)
+  .map((token: FirebaseToken) => token.uid)
+  .map(userId => ???)
+```
+##### Create a Custom Token:
+```scala
+val extraClaims = Map("admin" -> true)
+auth.createCustomToken(uid, Some(extraClaims)))
+  .map(token => ???]) // Provide token to client
+```
+
