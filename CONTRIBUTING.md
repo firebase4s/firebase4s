@@ -4,6 +4,8 @@ The Firebase4s project welcomes contributions from anybody wishing to participat
 All code or documentation that is provided must be licensed with the same
 license that Firebase4s is licensed with (MIT, see LICENSE.txt).
 
+If you'd like to chat about the project, join us on [gitter](https://gitter.im/firebase4s/firebase4s).
+
 ## Roadmap
 
 Firebase4s is new project, and there is still a lot to do, including:
