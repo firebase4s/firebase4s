@@ -1,10 +1,21 @@
 <img src="logo/logo-side-text.png?raw=true" width=400px />
 
+[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/firebase4s/firebase4s)
+
 ### Overview
 
 Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s will eliminate much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK, while providing all of the same [functionality](https://firebase.google.com/docs/admin/setup).
 
 ----------
+
+<a name="install"></a>
+### Install
+
+Firebase4s is hosted on Maven Central.  To add the SDK to your project, add the following to your `build.sbt`:
+```scala
+libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.1"
+```
+
 <a name="initialize"></a>
 ### Initialize
 
