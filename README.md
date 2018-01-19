@@ -11,7 +11,7 @@ Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SD
 <a name="install"></a>
 ### Install
 
-Firebase4s is hosted on Maven Central.  To create a dependency in your project, add the following to your `build.sbt`:
+Firebase4s is hosted on Maven Central.  To add the SDK to your project, add the following to your `build.sbt`:
 ```scala
 libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.1"
 ```
