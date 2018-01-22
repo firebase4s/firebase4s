@@ -1,21 +1,10 @@
 <img src="logo/logo-side-text.png?raw=true" width=400px />
 
-[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/firebase4s/firebase4s)
-
 ### Overview
 
 Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s will eliminate much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK, while providing all of the same [functionality](https://firebase.google.com/docs/admin/setup).
 
 ----------
-
-<a name="install"></a>
-### Install
-
-Firebase4s is hosted on Maven Central.  To add the SDK to your project, add the following to your `build.sbt`:
-```scala
-libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.1"
-```
-
 <a name="initialize"></a>
 ### Initialize
 
@@ -41,11 +30,12 @@ import com.firebase4s.database.Database
 val db: Database = Database.getInstance()
 val fooRef: DatabaseReference = db.ref("foo")
 ```
-There are four *categories* of supported data types:
+There are five *categories* of supported data types:
 
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Simple Types*:  `String`, `Boolean`, `Int`, `Long`, `Double`
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Maps containing Simple Types*: `Map[String, String]`, `Map[String, Boolean]`, etc.
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Iterables containing Simple Types*: `List[String]` , `Vector[Long]`, etc.
+##### &nbsp;&nbsp;&nbsp;&nbsp;*Options of any of the above*: `Option[Int]`, `Option[List[String]]`, etc.
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Classes*
 
 *Currently, only [`JavaBean`](https://en.wikipedia.org/wiki/JavaBeans) classes are supported.  Future versions of Firebase4s will support the use of `case classes` through the use of [Scala Macro Annotations](https://docs.scala-lang.org/overviews/macros/annotations.html).*

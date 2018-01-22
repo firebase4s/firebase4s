@@ -57,7 +57,7 @@ object DataConversions {
     value match {
       case l: Seq[_] => l.toList.asJava
       case m: Map[_, _] => mapAsJavaMap(m)
-      case Some(v) => v
+      case Some(v) => refValueAsJava(v)
       case None => null
       case _ => value
     }
