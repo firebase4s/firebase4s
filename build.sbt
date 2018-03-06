@@ -25,7 +25,8 @@ lazy val common = Seq(
                             "2.11.8"),
   resolvers ++= Seq(
     Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots")
+    Resolver.sonatypeRepo("snapshots"),
+    "Artima Maven Repository" at "http://repo.artima.com/releases"
   )
 )
 
@@ -74,8 +75,7 @@ lazy val test = (project in file("test"))
     ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
-      Resolver.sonatypeRepo("snapshots"),
-      "Artima Maven Repository" at "http://repo.artima.com/releases"
+      Resolver.sonatypeRepo("snapshots")
     )
   ) dependsOn root
 
