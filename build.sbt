@@ -3,7 +3,7 @@ import sbt.Keys._
 lazy val paradiseVersion = "2.1.0"
 lazy val googleApiVersion = "1.23.0"
 lazy val guavaVersion = "20.0"
-lazy val firebaseVersion = "5.8.0"
+lazy val firebaseVersion = "5.9.0"
 
 lazy val common = Seq(
   organization := "com.github.firebase4s",
@@ -74,7 +74,8 @@ lazy val test = (project in file("test"))
     ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
-      Resolver.sonatypeRepo("snapshots")
+      Resolver.sonatypeRepo("snapshots"),
+      "Artima Maven Repository" at "http://repo.artima.com/releases"
     )
   ) dependsOn root
 
