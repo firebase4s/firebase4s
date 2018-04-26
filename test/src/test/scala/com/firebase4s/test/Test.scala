@@ -16,6 +16,9 @@ object Test {
       .map(new ByteArrayInputStream(_))
       .getOrElse(getClass.getResourceAsStream("/firebase-service-account-key.json"))
 
+  println("Service account", serviceAccount.toString)
+  println("test db url", System.getenv("FIREBASE4S_TEST_DB_URL"))
+
   App.initialize(serviceAccount, System.getenv("FIREBASE4S_TEST_DB_URL"))
 
   val randomEmail: () => String = () => s"${Random.alphanumeric.take(10).mkString}@firebase4s.com".toLowerCase
