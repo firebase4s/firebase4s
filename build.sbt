@@ -69,16 +69,14 @@ lazy val test = (project in file("test"))
     common,
     publishArtifact := false,
     libraryDependencies ++= Seq(
-      "org.scalactic" %% "scalactic" % "3.0.4",
-      "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+      "org.scalactic" %% "scalactic" % "3.0.5",
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
     ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     )
   ) dependsOn root
-
-resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 //lazy val root = (project in file("."))
 //  .settings(
