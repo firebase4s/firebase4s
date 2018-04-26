@@ -24,9 +24,9 @@ lazy val common = Seq(
                             "2.11.7",
                             "2.11.8"),
   resolvers ++= Seq(
+    "Artima Maven Repository" at "http://repo.artima.com/releases",
     Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots"),
-    "Artima Maven Repository" at "http://repo.artima.com/releases"
+    Resolver.sonatypeRepo("snapshots")
   )
 )
 
