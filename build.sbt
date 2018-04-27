@@ -1,15 +1,15 @@
-import sbt.Keys._
+import sbt.Keys.{ developers, homepage, licenses, scmInfo, _ }
+import xerial.sbt.Sonatype.autoImport.sonatypeProfileName
 
 lazy val paradiseVersion = "2.1.0"
 lazy val googleApiVersion = "1.23.0"
 lazy val guavaVersion = "20.0"
 lazy val firebaseVersion = "5.9.0"
 
-lazy val common = Seq(
+lazy val commonSettings = Seq(
   organization := "com.github.firebase4s",
   version := "0.0.2",
   scalaVersion := "2.12.2",
-  skip in publish := true,
   crossScalaVersions := Seq("2.10.2",
                             "2.10.3",
                             "2.10.4",
@@ -23,28 +23,22 @@ lazy val common = Seq(
                             "2.11.5",
                             "2.11.6",
                             "2.11.7",
-                            "2.11.8"),
-  resolvers ++= Seq(
-    Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots")
-  )
+                            "2.11.8")
 )
 
-lazy val macros = (project in file("macros"))
+lazy val core = (project in file("core"))
   .settings(
-    common,
-    publishArtifact := false,
-    skip in publish := true,
-    libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
-    )
-  )
-
-lazy val root = (project in file("core"))
-  .settings(
-    common,
+    commonSettings,
     name := "firebase4s",
+    publishArtifact in Test := false,
+    libraryDependencies ++= Seq(
+      "org.slf4j" % "slf4j-api" % "1.7.25",
+      "ch.qos.logback" % "logback-classic" % "1.2.3",
+      "com.google.api-client" % "google-api-client" % googleApiVersion exclude ("com.google.guava", "guava-jdk5"),
+      "com.google.guava" % "guava" % guavaVersion,
+      "com.google.firebase" % "firebase-admin" % firebaseVersion exclude ("com.google.guava", "guava"),
+      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
+    ),
     publishTo := Some(
       if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging
     ),
@@ -56,34 +50,32 @@ lazy val root = (project in file("core"))
     licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
     sonatypeProfileName := "com.github.firebase4s",
     publishMavenStyle := true,
-    libraryDependencies ++= Seq(
-      "org.slf4j" % "slf4j-api" % "1.7.25",
-      "ch.qos.logback" % "logback-classic" % "1.2.3",
-      "com.google.api-client" % "google-api-client" % googleApiVersion exclude ("com.google.guava", "guava-jdk5"),
-      "com.google.guava" % "guava" % guavaVersion,
-      "com.google.firebase" % "firebase-admin" % firebaseVersion exclude ("com.google.guava", "guava"),
-      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
-    )
-  )
-
-lazy val test = (project in file("test"))
-  .settings(
-    common,
-    publishArtifact := false,
-    skip in publish := true,
-    libraryDependencies ++= Seq(
-      "org.scalactic" %% "scalactic" % "3.0.5",
-      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
-    ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     )
-  ) dependsOn root
+  )
 
-//lazy val root = (project in file("."))
-//  .settings(
-//    common,
-//    publishArtifact := false,
-//    run := run in Compile in core
-//  ) aggregate(core)
+lazy val macros = (project in file("macros"))
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
+    ),
+    publish := {},
+    publishLocal := {},
+    publishArtifact := false
+  )
+
+lazy val test = (project in file("test"))
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      "org.scalactic" %% "scalactic" % "3.0.5",
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+    ),
+    publish := {},
+    publishLocal := {},
+    publishArtifact := false
+  ) dependsOn core
