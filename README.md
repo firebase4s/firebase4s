@@ -1,7 +1,8 @@
 <img src="logo/logo-side-text.png?raw=true" width=400px />
 
 [![Build Status](https://travis-ci.org/firebase4s/firebase4s.svg?branch=master)](https://travis-ci.org/firebase4s/firebase4s)
-[![Gitter chat](https://badges.gitter.im/firebase4s/firebase4s.png)](https://gitter.im/firebase4s/firebase4s)
+[![Latest version](https://index.scala-lang.org/firebase4s/firebase4s/firebase4s/latest.svg?color=orange&v=1)](https://index.scala-lang.org/firebase4s/firebase4s/firebase4s)
+[![Gitter chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/firebase4s/firebase4s)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Overview
