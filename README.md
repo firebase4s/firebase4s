@@ -1,8 +1,12 @@
 <img src="logo/logo-side-text.png?raw=true" width=400px />
 
+[![Build Status](https://travis-ci.org/firebase4s/firebase4s.svg?branch=master)](https://travis-ci.org/firebase4s/firebase4s)
+[![Gitter chat](https://badges.gitter.im/firebase4s/firebase4s.png)](https://gitter.im/firebase4s/firebase4s)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ### Overview
 
-Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s will eliminate much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK, while providing all of the same [functionality](https://firebase.google.com/docs/admin/setup).
+Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s eliminates much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK.  Firebase4s currently provides the same [Realtime Database](#database) and [Authentication](#authentication) features as the Java SDK and aims to provide all of the same [functionality](https://firebase.google.com/docs/admin/setup) over time.
 
 ----------
 <a name="initialize"></a>
