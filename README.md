@@ -9,6 +9,19 @@
 
 Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SDK](https://github.com/firebase/firebase-admin-java).  By providing more idiomatic API interfaces and automatically handling Scala-to-Java data conversions, Firebase4s eliminates much of the [boilerplate](https://medium.com/@RICEaaron/scala-firebase-da433df93bd2) required to use the Java SDK.  Firebase4s currently provides the same [Realtime Database](#database) and [Authentication](#authentication) features as the Java SDK and aims to provide all of the same [functionality](https://firebase.google.com/docs/admin/setup) over time.
 
+
+----------
+<a name="getting-started"></a>
+### Getting Started
+
+To use `firebase4s` in your project, add the following to your `build.sbt`:
+
+```scala
+libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.2"
+```
+
+
+
 ----------
 <a name="initialize"></a>
 ### Initialize
