@@ -7,7 +7,7 @@ lazy val firebaseVersion = "5.9.0"
 
 lazy val common = Seq(
   organization := "com.github.firebase4s",
-  version := "0.0.1",
+  version := "0.0.2",
   scalaVersion := "2.12.2",
   crossScalaVersions := Seq("2.10.2",
                             "2.10.3",
