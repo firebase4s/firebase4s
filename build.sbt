@@ -9,6 +9,7 @@ lazy val common = Seq(
   organization := "com.github.firebase4s",
   version := "0.0.2",
   scalaVersion := "2.12.2",
+  skip in publish := true,
   crossScalaVersions := Seq("2.10.2",
                             "2.10.3",
                             "2.10.4",
