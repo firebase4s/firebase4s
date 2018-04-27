@@ -33,6 +33,7 @@ lazy val macros = (project in file("macros"))
   .settings(
     common,
     publishArtifact := false,
+    skip in publish := true,
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value,
       compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
@@ -68,6 +69,7 @@ lazy val test = (project in file("test"))
   .settings(
     common,
     publishArtifact := false,
+    skip in publish := true,
     libraryDependencies ++= Seq(
       "org.scalactic" %% "scalactic" % "3.0.5",
       "org.scalatest" %% "scalatest" % "3.0.5" % "test"
