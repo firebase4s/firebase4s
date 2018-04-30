@@ -5,6 +5,7 @@ lazy val paradiseVersion = "2.1.0"
 lazy val googleApiVersion = "1.23.0"
 lazy val guavaVersion = "20.0"
 lazy val firebaseVersion = "5.9.0"
+lazy val circeVersion = "0.9.3"
 
 lazy val commonSettings = Seq(
   organization := "com.github.firebase4s",
@@ -37,7 +38,10 @@ lazy val core = (project in file("core"))
       "com.google.api-client" % "google-api-client" % googleApiVersion exclude ("com.google.guava", "guava-jdk5"),
       "com.google.guava" % "guava" % guavaVersion,
       "com.google.firebase" % "firebase-admin" % firebaseVersion exclude ("com.google.guava", "guava"),
-      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
+      "com.chuusai" %% "shapeless" % "2.3.3"
+//      "io.circe" %% "circe-core" % circeVersion,
+//      "io.circe" %% "circe-generic"  % circeVersion,
+//      "io.circe" %% "circe-parser"  % circeVersion
     ),
     publishTo := Some(
       if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging
@@ -54,7 +58,7 @@ lazy val core = (project in file("core"))
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     )
-  )
+  ) dependsOn(macros)
 
 lazy val macros = (project in file("macros"))
   .settings(
@@ -73,7 +77,8 @@ lazy val test = (project in file("test"))
     commonSettings,
     libraryDependencies ++= Seq(
       "org.scalactic" %% "scalactic" % "3.0.5",
-      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+      compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.patch)
     ),
     publish := {},
     publishLocal := {},
