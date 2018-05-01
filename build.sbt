@@ -39,9 +39,6 @@ lazy val core = (project in file("core"))
       "com.google.guava" % "guava" % guavaVersion,
       "com.google.firebase" % "firebase-admin" % firebaseVersion exclude ("com.google.guava", "guava"),
       "com.chuusai" %% "shapeless" % "2.3.3"
-//      "io.circe" %% "circe-core" % circeVersion,
-//      "io.circe" %% "circe-generic"  % circeVersion,
-//      "io.circe" %% "circe-parser"  % circeVersion
     ),
     publishTo := Some(
       if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging
