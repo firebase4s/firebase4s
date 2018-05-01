@@ -12,6 +12,6 @@ env:
   global:
     secure: UTbXilGMDDRzvKLnqUH6IuZyjYoW7hTwGseWFR2LDHY+VM/Y/+ht+Iv1Lq3Wy/EMlmGlmqOXwDPaRhwjxMDR/PmNeeNMwS4pf8QjuoiTD8jN806HVvQ0KZsE61j+bi5M7p3giQfmc+m7Bo6zF6LLjvRnnKJgLPGRlm1SNxPs3DAk6MF/m2BO7jNn3cBn6x7q7LqDlIED9+hclwwatatUszPhxF+xjygj1Tdp4uRlwVU+Y/Z15LZy22U+gq1DM4ZWFKnFaQ69bQfHBglEtKOqPCafUx6GxWw9YxgMXCUv/LMrjP4OG24V983IjlANhLwxRuF5TGBsxXwf/1fCCK9WSUiyx8EaarkTFyUcY0LhVaSxMaErdn1SEGLe1wScGuy624+VAg6ps4TgExgrotkQFzh6mA20OJsdLaxR2MEXDehydxGIKrehFs96WptQaViJkyPB2d6ZpASs74ESvznDMyT/LDGYXFAuL8iQW4dbcv4Q7N3kLjOeyP2aTR+pnrGJpQkc5ds//pok9bX094602g3bNIm+E24g5EC6o6h5B2bvJfSolN4SK1ezsgxHA9KdKQy5Anm/prrUs/0D6AMhUJ7Xu8Qgo7Y5ueKa/wha3gK61VSEmcwBUikaH6faU/FKqlotxqVOD49QqWNQXPe41ceV0nHflT8ex4OKu0/F5JM=
 before_install:
-- openssl aes-256-cbc -K $encrypted_defaa5d0494c_key -iv $encrypted_defaa5d0494c_iv
+- openssl aes-256-cbc -K $encrypted_8fe8509febe7_key -iv $encrypted_8fe8509febe7_iv
   -in firebase-service-account-key.json.enc -out test/src/test/resources/firebase-service-account-key.json
   -d
