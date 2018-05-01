@@ -10,11 +10,11 @@ import scala.util.Random
 
 object Test {
 
-  private val serviceAccount = getClass.getResourceAsStream("/firebase-service-account-key.json")
-    // Option(System.getenv("FIREBASE4S_TEST_SERVICE_ACCOUNT"))
-    //   .map(_.getBytes)
-    //   .map(new ByteArrayInputStream(_))
-      // .getOrElse(getClass.getResourceAsStream("/firebase-service-account-key.json"))
+  private val serviceAccount =
+    Option(System.getenv("FIREBASE4S_TEST_SERVICE_ACCOUNT"))
+      .map(_.getBytes)
+      .map(new ByteArrayInputStream(_))
+      .getOrElse(getClass.getResourceAsStream("/firebase-service-account-key.json"))
 
   App.initialize(serviceAccount, System.getenv("FIREBASE4S_TEST_DB_URL"))
 
