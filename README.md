@@ -17,7 +17,7 @@ Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SD
 To use `firebase4s` in your project, add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.2"
+libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.3"
 ```
 
 
@@ -112,7 +112,7 @@ Working with  `case classes`:
   * The Helpers module provides a `toMap` method which
   * we can invoke on our case class to convert it to a
   * Map[String, Any] that can be set as a value in the
-  * in the database.  When retrieving the value as this 
+  * in the database.  When retrieving the value as this
   * ref location, we will get back a Map[String, Any]
   * representation of our case class instance.
   */
