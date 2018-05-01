@@ -56,7 +56,7 @@ There are five *categories* of supported data types:
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Options of any of the above*: `Option[Int]`, `Option[List[String]]`, etc.
 ##### &nbsp;&nbsp;&nbsp;&nbsp;*Classes*
 
-*Currently, only [`JavaBean`](https://en.wikipedia.org/wiki/JavaBeans) classes are supported.  Future versions of Firebase4s will support the use of `case classes` through the use of [Scala Macro Annotations](https://docs.scala-lang.org/overviews/macros/annotations.html).*
+*Currently, only [`JavaBean`](https://en.wikipedia.org/wiki/JavaBeans) classes are supported.  However, Firebase4s offers a [`toMap`](#toMap) helper method which makes working with non-nested case classes easier.  Future versions of Firebase4s will fully support the use of `case classes` through the use of [Scala Macro Annotations](https://docs.scala-lang.org/overviews/macros/annotations.html). and/or [Shapeless](https://github.com/milessabin/shapeless)*
 
 #### Examples:
 
@@ -88,7 +88,7 @@ class User() {
 }
 
 /** Get a database reference */
-val userRef = db.ref(s"user")
+val userRef = db.ref("user")
 
 /** Create user */
 val user = new User()
@@ -104,6 +104,35 @@ userRef.get()
   .map((user: Option[UserRecord]) => ???) // handle result
 
 ```
+<a name="toMap"></a>
+Working with  `case classes`:
+
+```scala
+/**
+  * The Helpers module provides a `toMap` method which
+  * we can invoke on our case class to convert it to a
+  * Map[String, Any] that can be set as a value in the
+  * in the database.  When retrieving the value as this 
+  * ref location, we will get back a Map[String, Any]
+  * representation of our case class instance.
+  */
+
+import com.firebase4s.database.Helpers._
+
+case class User(name: String, age: Int)
+
+val user = User("tim", 44)
+val userRef = db.ref("user")
+
+userRef.set(user.toMap)
+
+userRef.get().foreach(snapshot => {
+  println(snapshot.getValue) // Map(name -> tim, age -> 44)
+})
+
+```
+
+
 <a name="auth"></a>
 ### Authentication
 

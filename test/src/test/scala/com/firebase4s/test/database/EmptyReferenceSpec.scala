@@ -22,4 +22,19 @@ class EmptyReferenceSpec extends AsyncWordSpecLike with Matchers {
       }
     }
   }
+
+  "DatabaseSnapshot" should {
+    "return the provided default value" when {
+      "no value exists at the its location" in {
+        val result = for {
+          _ <- emptyRef.set(None)
+          snapshot <- emptyRef.get()
+        } yield snapshot
+        val defaultValue = 44
+        result map { snapshot =>
+          assert(snapshot.getValueOrElse(defaultValue) == defaultValue)
+        }
+      }
+    }
+  }
 }
