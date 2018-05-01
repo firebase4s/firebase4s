@@ -46,17 +46,7 @@ object DataConversions {
         value
       }
     }))
-
-////  private[database] def dataClassToMap[A](a: A): java.util.Map[String, Any] = {
-////    implicit val gen = LabelledGeneric[A]
-////    val map = a.toMap
-////    mapAsJavaMap(map)
-////  }
-//
-//  def dataClassToMap[T, HL <: HList](instance: T)(implicit gen: Generic.Aux[T, HL]): HL = {
-//    import Mappable._
-//    gen to instance
-//    }
+  
   /**
     * Perform simple conversion for Map and List
     */
