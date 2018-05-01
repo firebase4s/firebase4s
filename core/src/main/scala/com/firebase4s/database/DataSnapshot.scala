@@ -2,8 +2,6 @@ package com.firebase4s.database
 
 import com.google.firebase.database
 import scala.collection.JavaConverters._
-import scala.reflect._
-import DataConversions._
 
 case class DataSnapshot(private val snapshot: database.DataSnapshot) {
 
@@ -46,7 +44,7 @@ case class DataSnapshot(private val snapshot: database.DataSnapshot) {
 
   /**
     * Get the data contained within the snapshot as an Option[A],
-    * where the class of type A is provided as a parameter
+    * where the @Bean class of type A is provided as a parameter
     * @tparam A
     * @return
     */
@@ -55,6 +53,18 @@ case class DataSnapshot(private val snapshot: database.DataSnapshot) {
       Some(snapshot.getValue(valueType))
     } else {
       None
+    }
+
+  /**
+    * Return the underlying value of the snapshot if it exists. Otherwise return
+    * the provided default value.
+    * @return
+    */
+  def getValueOrElse(a: Any): Any =
+    if (snapshot.exists()) {
+      DataConversions.snapshotValueAsScala(snapshot.getValue)
+    } else {
+      a
     }
 
   /**

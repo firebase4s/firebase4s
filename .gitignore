@@ -16,6 +16,7 @@ project/plugins/project/
 .history
 .cache
 .lib/
+*.iml
 
 ### Scala ###
 *.class

@@ -18,7 +18,7 @@ import java.util.concurrent.{AbstractExecutorService, TimeUnit}
 import java.util.Collections
 
 object ExecutionContextExecutorServiceBridge {
-  def apply(ec: ExecutionContext): ExecutionContextExecutorService = ec match {
+  private[firebase4s] def apply(ec: ExecutionContext): ExecutionContextExecutorService = ec match {
     case null                                  => throw null
     case eces: ExecutionContextExecutorService => eces
     case other =>

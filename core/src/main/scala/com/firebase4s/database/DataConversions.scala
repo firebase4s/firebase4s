@@ -3,7 +3,6 @@ package com.firebase4s.database
 import scala.collection.JavaConverters._
 
 object DataConversions {
-
   /**
     * Convert Java values to Scala
     *
@@ -17,16 +16,15 @@ object DataConversions {
     *   <li>List&lt;Object&gt;
     * </ul>
     */
-  private[database] def snapshotValueAsScala(value: Any): Any = {
+  private[database] def snapshotValueAsScala(value: Any): Any =
     value match {
-      case b: java.lang.Boolean => b.asInstanceOf[Boolean]
-      case s: java.lang.String => s
-      case l: java.lang.Long => l.toLong
-      case d: java.lang.Double => d.toDouble
-      case m: java.util.HashMap[String, Object] => m.asScala
-      case l: java.util.List[Object] => l.asScala.toList
+      case b: java.lang.Boolean                 => b.asInstanceOf[Boolean]
+      case s: java.lang.String                  => s
+      case l: java.lang.Long                    => l.toLong
+      case d: java.lang.Double                  => d.toDouble
+      case m: java.util.HashMap[String, Object] => m.asScala.toMap
+      case l: java.util.List[Object]            => l.asScala.toList
     }
-  }
 
   /**
     * Converts a Map to its Java counterpart for the purpose of updating several
@@ -37,30 +35,28 @@ object DataConversions {
     * @param update
     * @return
     */
-  def childUpdateAsJava(update: Map[String, AnyRef]): java.util.Map[String, AnyRef] = {
+  private[database] def childUpdateAsJava(update: Map[String, AnyRef]): java.util.Map[String, AnyRef] =
     mapAsJavaMap(update.mapValues(value => {
       if (value.isInstanceOf[Option[_]]) {
         value match {
           case Some(v) => v.asInstanceOf[AnyRef]
-          case None => null
+          case None    => null
         }
       } else {
         value
       }
     }))
-  }
-
+  
   /**
     * Perform simple conversion for Map and List
     */
-  private[database] def refValueAsJava(value: Any): Any = {
+  private[database] def refValueAsJava[T](value: Any): Any =
     value match {
-      case l: Seq[_] => l.toList.asJava
-      case m: Map[_, _] => mapAsJavaMap(m)
-      case Some(v) => refValueAsJava(v)
-      case None => null
-      case _ => value
+      case l: Seq[_]        => l.toList.asJava
+      case m: Map[_, _]     => mapAsJavaMap(m)
+      case Some(v)          => refValueAsJava(v)
+      case None             => null
+      case _                => value
     }
-  }
 
 }
