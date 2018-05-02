@@ -9,7 +9,7 @@ lazy val circeVersion = "0.9.3"
 
 lazy val commonSettings = Seq(
   organization := "com.github.firebase4s",
-  version := "0.0.3",
+  version := "0.0.4",
   scalaVersion := "2.12.2",
   crossScalaVersions := Seq("2.10.2",
                             "2.10.3",
