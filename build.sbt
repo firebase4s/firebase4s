@@ -55,7 +55,7 @@ lazy val core = (project in file("core"))
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     )
-  ) dependsOn(macros)
+  )
 
 lazy val macros = (project in file("macros"))
   .settings(
