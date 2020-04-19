@@ -1,7 +1,8 @@
 package com.firebase4s.test.database
 
-import org.scalatest._
 import com.firebase4s.database.DatabaseReference
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AsyncWordSpecLike
 
 import scala.beans.BeanProperty
 
@@ -11,13 +12,10 @@ class Name() {
   @BeanProperty var middle: String = _
 }
 
-
 class User() {
   @BeanProperty var name: Name = _
   @BeanProperty var email: String = _
 }
-
-
 
 class JavaClassSpec extends AsyncWordSpecLike with Matchers {
 
@@ -27,7 +25,7 @@ class JavaClassSpec extends AsyncWordSpecLike with Matchers {
   userData.email = "tim@firebase4s.com"
   val name = new Name()
   name.first = "tim"
-  name.last =  "pike"
+  name.last = "pike"
   name.middle = "d"
   userData.name = name
 
@@ -52,16 +50,16 @@ class JavaClassSpec extends AsyncWordSpecLike with Matchers {
         classRef
           .get()
           .map(snapshot => snapshot.getValue(classOf[User]))
-            .map(maybeUser => {
-              assert(maybeUser.nonEmpty)
-              val user = maybeUser.get
-              assert(user.getClass == classOf[User])
-              assert(user.name.getClass == classOf[Name])
-              assert(user.name.first == userData.name.first)
-              assert(user.name.last == userData.name.last)
-              assert(user.name.middle == userData.name.middle)
-              assert(user.email == userData.email)
-            })
+          .map(maybeUser => {
+            assert(maybeUser.nonEmpty)
+            val user = maybeUser.get
+            assert(user.getClass == classOf[User])
+            assert(user.name.getClass == classOf[Name])
+            assert(user.name.first == userData.name.first)
+            assert(user.name.last == userData.name.last)
+            assert(user.name.middle == userData.name.middle)
+            assert(user.email == userData.email)
+          })
       }
     }
   }

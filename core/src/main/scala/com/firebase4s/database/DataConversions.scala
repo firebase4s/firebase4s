@@ -36,7 +36,7 @@ object DataConversions {
     * @return
     */
   private[database] def childUpdateAsJava(update: Map[String, AnyRef]): java.util.Map[String, AnyRef] =
-    mapAsJavaMap(update.mapValues(value => {
+    update.mapValues { value =>
       if (value.isInstanceOf[Option[_]]) {
         value match {
           case Some(v) => v.asInstanceOf[AnyRef]
@@ -45,15 +45,17 @@ object DataConversions {
       } else {
         value
       }
-    }))
-  
+    }.toMap.asJava
+
   /**
     * Perform simple conversion for Map and List
     */
-  private[database] def refValueAsJava[T](value: Any): Any =
+  private[database] def refValueAsJava(value: Any): Any =
     value match {
-      case l: Seq[_]        => l.toList.asJava
-      case m: Map[_, _]     => mapAsJavaMap(m)
+      case l: Seq[_]        => l.toList.map(refValueAsJava).asJava
+      case m: Map[String, _]     => m.map {
+        case (a, b) => a -> refValueAsJava(b)
+      }.asJava
       case Some(v)          => refValueAsJava(v)
       case None             => null
       case _                => value

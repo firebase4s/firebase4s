@@ -2,7 +2,8 @@ package com.firebase4s.test.database
 
 import com.firebase4s.database.{ DataSnapshot, DatabaseReference }
 import com.firebase4s.test.Test.db
-import org.scalatest._
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AsyncWordSpecLike
 
 import scala.concurrent.Future
 
@@ -47,7 +48,7 @@ class SimpleValuesSpec extends AsyncWordSpecLike with Matchers {
           values <- getValues()
         } yield values
 
-        results.map(resultsList => assert(resultsList.forall(r => r._1.getValue.contains(r._2))))
+        results.map(resultsList => assert(resultsList.forall(r => r._1.getValue.fold(fail())(_ == r._2))))
       }
     }
   }

@@ -1,7 +1,8 @@
 package com.firebase4s.test.database
 
-import org.scalatest._
 import com.firebase4s.database.DatabaseReference
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AsyncWordSpecLike
 
 class EmptyReferenceSpec extends AsyncWordSpecLike with Matchers {
 

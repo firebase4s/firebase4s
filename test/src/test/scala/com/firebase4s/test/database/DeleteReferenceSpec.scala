@@ -1,7 +1,8 @@
 package com.firebase4s.test.database
 
-import org.scalatest._
 import com.firebase4s.database.DatabaseReference
+import org.scalatest.wordspec.AsyncWordSpecLike
+import org.scalatest.matchers.should.Matchers
 
 class DeleteReferenceSpec extends AsyncWordSpecLike with Matchers {
 
@@ -24,5 +25,3 @@ class DeleteReferenceSpec extends AsyncWordSpecLike with Matchers {
     }
   }
 }
-
-

@@ -22,7 +22,7 @@ class UpdateUserSpec extends AsyncWordSpecLike with BeforeAndAfter with Matchers
 
         val updateProps: UserUpdateProps = UserUpdateProps(
           email = Some(randomEmail()),
-          displayName = Some("updatedTestUser"),
+          displayName = Some("updatedTestUser")
         )
 
         def getOrCreateUser(email: String): Future[UserRecord] =

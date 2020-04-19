@@ -1,10 +1,9 @@
 package com.firebase4s.test.database
 
-import com.firebase4s.database.{ DataSnapshot, DatabaseReference }
+import com.firebase4s.database.DatabaseReference
 import com.firebase4s.test.Test.db
-import org.scalatest._
-
-import scala.concurrent.Future
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AsyncWordSpecLike
 
 class OptionValuesSpec extends AsyncWordSpecLike with Matchers {
 
@@ -15,7 +14,8 @@ class OptionValuesSpec extends AsyncWordSpecLike with Matchers {
         val optionValue = Some("option")
         val optionRef: DatabaseReference = db.ref("test/someString")
 
-        optionRef.set(optionValue)
+        optionRef
+          .set(optionValue)
           .flatMap(_ => optionRef.get())
           .map(snapshot => assert(snapshot.getValue == optionValue))
 
@@ -27,7 +27,8 @@ class OptionValuesSpec extends AsyncWordSpecLike with Matchers {
 
         val noneRef: DatabaseReference = db.ref("test/none")
 
-        noneRef.set(None)
+        noneRef
+          .set(None)
           .flatMap(_ => noneRef.get())
           .map(snapshot => assert(!snapshot.exists))
       }
