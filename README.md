@@ -17,7 +17,7 @@ Firebase4s aims to provide a Scala-friendly alternative to the [Firebase Java SD
 To use `firebase4s` in your project, add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.github.firebase4s" %% "firebase4s" % "0.0.4"
+libraryDependencies += "com.github.firebase4s" % "firebase4s_2.12" % "0.0.4"
 ```
 
 
